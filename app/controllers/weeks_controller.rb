@@ -1,5 +1,5 @@
 class WeeksController < ApplicationController
-  
+
   def index
     @weeks = Week.all
   end
@@ -23,8 +23,8 @@ class WeeksController < ApplicationController
     @week = @course.weeks.new
   end
   def edit
-    @course = Course.find(params[:course_id])
     @week = Week.find(params[:id])
+    @course = @week.course
   end
   def update
     @course = Course.find(params[:course_id])

@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
+  root :to => 'courses#index'
   resources :courses do
-    resources :weeks
+    resources :weeks, :except => [:index]
   end
   resources :weeks do
-    resources :lessons
+    resources :lessons, :except => [:index]
   end
 end

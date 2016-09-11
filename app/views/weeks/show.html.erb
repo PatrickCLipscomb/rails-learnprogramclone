@@ -1,10 +1,11 @@
 <% content_for(:navbar) do %>
-  <ul>
-    <li><a href="/courses">Home</a></li>
-    <% unless @week.id == Week.first.id %>
-      <li> <%= link_to 'Previous', @week.previous  %></li>
+    <a class="btn btn-primary" href="/courses">Home</a>
+    <% unless @week.id == @week.course.weeks.first.id %>
+      <%= link_to 'Previous', @week.previous, :class => "btn btn-primary" %>
     <% end %>
-  </ul>
+    <% unless @week.id == @week.course.weeks.last.id %>
+      <%= link_to 'Next', @week.next, :class => "btn btn-primary" %>
+    <% end %>
 <% end %>
 
 <h1><%= @week.title %> Page</h1>
@@ -12,11 +13,11 @@
 
 <ul>
   <% @week.lessons.each do |lesson| %>
-  <li><%= lesson.title %> | <%= link_to "View Lesson", week_lesson_path(@week, lesson) %></li>
+  <li><%= lesson.title %> | <%= link_to "View Lesson", week_lesson_path(lesson) %></li>
   <% end %>
 </ul>
 
 
-<%= link_to "Edit", edit_course_week_path(@course, @week) %> | <%= link_to "Delete", week_path(@week), :data => {:confirm => "You Sure?", :method => 'delete'} %> | <%= link_to "Add a Lesson", new_week_lesson_path(@week) %>
+<%= link_to "Edit", edit_course_week_path(@week) %> | <%= link_to "Delete", week_path(@week), :data => {:confirm => "You Sure?", :method => 'delete'} %> | <%= link_to "Add a Lesson", new_week_lesson_path(@week) %>
 <hr>
 <%= link_to "Back to Course Page", course_path(@course) %>
